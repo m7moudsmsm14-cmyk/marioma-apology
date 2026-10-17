@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ماتزعليش مني يا مريومة 💗</title>
+<style>
+  :root { --pink:#ff5d91; --deep:#b52d63; --cream:#fff8fb; --ink:#54253a; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; min-height:100vh; overflow-x:hidden; font-family:Tahoma,Arial,sans-serif;
+    color:var(--ink); background:radial-gradient(circle at top,#ffe1ec 0,#fff4f8 45%,#fff 100%);
+    display:flex; justify-content:center; align-items:center; padding:24px;
+  }
+  .hearts { position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
+  .heart { position:absolute; bottom:-40px; color:#ff8db2; opacity:.5; animation:floatUp linear infinite; }
+  @keyframes floatUp { to { transform:translateY(-115vh) rotate(25deg); opacity:0; } }
+  .card {
+    position:relative; z-index:1; width:min(760px,100%); text-align:center; padding:clamp(22px,5vw,48px);
+    background:rgba(255,255,255,.84); border:1px solid #ffd1e0; border-radius:30px;
+    box-shadow:0 20px 70px #d94d7a22; backdrop-filter:blur(8px);
+  }
+  h1 { font-size:clamp(2.2rem,7vw,4.8rem); line-height:1.25; margin:0 0 14px; color:#d63876; }
+  .intro { font-size:clamp(1.05rem,3vw,1.35rem); line-height:1.9; margin:0 auto 28px; max-width:580px; }
+  .envelope-wrap { margin:26px auto 12px; width:min(280px,75vw); cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; }
+  .envelope-wrap:focus-visible { outline:3px solid #d63876; outline-offset:8px; border-radius:12px; }
+  .envelope { transition:transform .25s ease; }
+  .envelope-wrap:hover .envelope { transform:translateY(-4px); }
+  .envelope { position:relative; height:175px; background:#ff9fbd; border-radius:8px 8px 14px 14px; box-shadow:0 12px 25px #d94d7a30; }
+  .envelope:before { content:""; position:absolute; inset:0; background:#ffb6cc; clip-path:polygon(0 0,50% 58%,100% 0); border-radius:8px; }
+  .envelope:after { content:""; position:absolute; inset:0; background:#ff7fa8; clip-path:polygon(0 100%,0 0,50% 58%,100% 0,100% 100%); border-radius:8px; }
+  .seal { position:absolute; z-index:3; top:52%; left:50%; transform:translate(-50%,-50%); font-size:2.2rem; filter:drop-shadow(0 3px 2px #a62c5b33); }
+  .env-label { margin-top:14px; font-size:1.1rem; font-weight:bold; color:#b52d63; }
+  button { font:inherit; border:0; border-radius:999px; padding:13px 25px; cursor:pointer; transition:transform .18s, box-shadow .18s; }
+  button:focus-visible { outline:3px solid #7a2450; outline-offset:4px; }
+  .primary { background:linear-gradient(135deg,#ff7eaa,#ed3e7c); color:white; box-shadow:0 8px 18px #ed3e7c35; }
+  button:hover { transform:translateY(-2px); }
+  .hidden { display:none !important; }
+  #questionScreen h2 { font-size:clamp(1.8rem,5vw,3rem); margin:12px 0; }
+  .meter-box { margin:22px auto; max-width:460px; }
+  .meter-top { display:flex; align-items:center; justify-content:space-between; gap:12px; font-weight:bold; margin-bottom:9px; }
+  .meter { height:17px; border-radius:999px; background:#ffe1eb; overflow:hidden; border:1px solid #ffc0d5; }
+  .meter-fill { width:0%; height:100%; background:linear-gradient(90deg,#ffb13b,#ff4f86); border-radius:999px; transition:width .25s ease; }
+  .scare { min-height:34px; font-size:1.05rem; color:#c32c69; font-weight:bold; margin:12px 0; }
+  .choices { display:flex; justify-content:center; align-items:center; gap:18px; flex-wrap:wrap; min-height:95px; position:relative; }
+  #noBtn { background:#f1edf0; color:#6b5660; position:relative; }
+  #yesBtn { background:#e9437e; color:white; box-shadow:0 8px 18px #e9437e30; }
+  .note { color:#987184; font-size:.9rem; margin-top:18px; }
+  .letter { background:#fff8fb; border:1px dashed #ff9fbd; padding:25px; border-radius:22px; text-align:right; font-size:1.08rem; line-height:2; }
+  .letter h2 { text-align:center; color:#d63876; font-size:2rem; }
+  .signature { text-align:left; color:#c52f6d; font-weight:bold; font-size:1.15rem; margin-top:18px; }
+  .sparkle { font-size:2rem; }
+  @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+<main class="card">
+  <section id="startScreen">
+    <div class="sparkle">💌</div>
+    <h1>ما تزعليش مني يا مريومة</h1>
+    <p class="intro">عارف إنك ممكن تكوني زعلانة مني… بس عاملك مفاجأة صغيرة، ومحتاج منك تفتحي الظرف الأول 🥺💗</p>
+    <div class="envelope-wrap" id="openEnvelope" role="button" tabindex="0" aria-label="افتحي الظرف">
+      <div class="envelope"><span class="seal">💗</span></div>
+      <div class="env-label">افتحي الظرف ✨</div>
+    </div>
+    <button class="primary" id="openBtn">افتحي الظرف 💌</button>
+  </section>
+
+  <section id="questionScreen" class="hidden">
+    <div class="sparkle">🥺💗</div>
+    <h2>لسه زعلانة؟</h2>
+    <p class="intro">طب بصّي في عيني كده… لسه زعلانة بجد؟</p>
+    <div class="meter-box">
+      <div class="meter-top"><span>زعل دودي</span><span id="meterLabel">0%</span></div>
+      <div class="meter"><div class="meter-fill" id="meterFill"></div></div>
+      <div class="scare" id="scareText" aria-live="polite">لو اختارتي لأ هعرف هااااا 😏</div>
+    </div>
+    <div class="choices" id="choices">
+      <button id="yesBtn">لأ، مش زعلانة 💗</button>
+      <button id="noBtn">أيوه، لسه زعلانة 😤</button>
+    </div>
+    <p class="note">ملحوظة: زرار «أيوه» بيخاف وبيجري 😂</p>
+  </section>
+
+  <section id="letterScreen" class="hidden">
+    <div class="sparkle">💖✨💖</div>
+    <div class="letter">
+      <h2>To my favorite person 💌</h2>
+      <p>My love,</p>
+      <p>I may not always find the perfect words, and sometimes I may make mistakes without realizing how they make you feel. But please know that you mean so much to me, and the last thing I ever want is to be the reason behind your sadness.</p>
+      <p>Your smile makes my days brighter, and having you in my life is something I never want to take for granted. I’m sorry if I hurt you. I want to understand you better, listen to you more, and show you through my actions—not just my words—how much you matter to me.</p>
+      <p>So, when you’re ready, give me one tiny smile… and maybe one chance to make it up to you. No pressure, just lots of love. 💗</p>
+      <p class="signature">אוהב אותך, מרים ❤️</p>
+    </div>
+    <button class="primary" id="againBtn" style="margin-top:22px">اقريها تاني 🥹</button>
+  </section>
+</main>
+<script>
+  const $ = (id) => document.getElementById(id);
+  const startScreen = $('startScreen'), questionScreen = $('questionScreen'), letterScreen = $('letterScreen');
+  function show(screen) {
+    [startScreen, questionScreen, letterScreen].forEach(s => s.classList.add('hidden'));
+    screen.classList.remove('hidden');
+  }
+  function openEnvelope() {
+    if (questionScreen.classList.contains('hidden')) show(questionScreen);
+  }
+  // Bind both the visible button and the envelope itself for mouse, touch, and keyboard.
+  $('openBtn').addEventListener('click', openEnvelope);
+  const envelope = $('openEnvelope');
+  envelope.addEventListener('click', openEnvelope);
+  envelope.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openEnvelope();
+    }
+  });
+
+  let level = 0, attempts = 0;
+  const messages = [
+    'احا دي مريومه لسا زعلانههههه 😭',
+    'طب دودي هيزعل طيب 🥹',
+    'أنا بدأت أقلق رسمي والله 😵‍💫',
+    'خدي ورد يا مريومه 💐',
+    'خلاص يا ستي، حقك عليّا… بس ارحميني 😂💗'
+  ];
+  const noBtn = $('noBtn');
+  function dodge() {
+    attempts++;
+    level = Math.min(100, level + 20);
+    $('meterFill').style.width = level + '%';
+    $('meterLabel').textContent = level + '%';
+    $('scareText').textContent = messages[Math.min(Math.floor((attempts - 1) / 2), messages.length - 1)];
+    noBtn.style.position = 'absolute';
+    const area = $('choices');
+    const maxX = Math.max(0, area.clientWidth - noBtn.offsetWidth);
+    const maxY = 48;
+    noBtn.style.left = Math.random() * maxX + 'px';
+    noBtn.style.top = (Math.random() * maxY - 12) + 'px';
+    noBtn.style.transform = `rotate(${Math.random() * 16 - 8}deg)`;
+  }
+  noBtn.addEventListener('pointerenter', dodge);
+  noBtn.addEventListener('focus', dodge);
+  noBtn.addEventListener('click', e => { e.preventDefault(); dodge(); });
+  $('yesBtn').addEventListener('click', () => show(letterScreen));
+  $('againBtn').addEventListener('click', () => { level=0; attempts=0; $('meterFill').style.width='0%'; $('meterLabel').textContent='0%'; noBtn.style.position='relative'; noBtn.style.left=''; noBtn.style.top=''; noBtn.style.transform=''; show(questionScreen); });
+  for (let i=0; i<18; i++) {
+    const h = document.createElement('span'); h.className='heart'; h.textContent=['♥','♡','💗'][i%3];
+    h.style.left=(Math.random()*100)+'%'; h.style.animationDuration=(8+Math.random()*10)+'s';
+    h.style.animationDelay=(-Math.random()*15)+'s'; h.style.fontSize=(14+Math.random()*22)+'px';
+    $('hearts').appendChild(h);
+  }
+</script>
+</body>
+</html>
